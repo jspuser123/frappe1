@@ -1,0 +1,82 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"FM6JKvAMnP\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><a href=\\\"https://www.google.com/search?client=firefox-b-e&amp;q=library+management&amp;spell=1&amp;sa=X&amp;ved=2ahUKEwiOqtX37N_9AhUJSmwGHYM8DxcQkeECKAB6BAgJEAE\\\"><b><i>library</i></b> <b><i>management</i></b></a></span>\",\"col\":12}}]",
+ "creation": "2023-03-14 16:47:58.313433",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "lock",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "js",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "member",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "memberlist",
+   "link_count": 0,
+   "link_to": "Library Member",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Library Transaction",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Library Transaction",
+   "link_count": 0,
+   "link_to": "Library Transaction",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "feedback",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "feeds",
+   "link_count": 0,
+   "link_to": "feedback",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2023-03-16 13:20:30.842156",
+ "modified_by": "Administrator",
+ "module": "coolapp",
+ "name": "js",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [],
+ "title": "js"
+}

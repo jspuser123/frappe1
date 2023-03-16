@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include coolapp *.css
+recursive-include coolapp *.csv
+recursive-include coolapp *.html
+recursive-include coolapp *.ico
+recursive-include coolapp *.js
+recursive-include coolapp *.json
+recursive-include coolapp *.md
+recursive-include coolapp *.png
+recursive-include coolapp *.py
+recursive-include coolapp *.svg
+recursive-include coolapp *.txt
+recursive-exclude coolapp *.pyc
