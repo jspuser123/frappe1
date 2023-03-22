@@ -6,29 +6,65 @@ from frappe.model.document import Document
 from frappe.model.docstatus import DocStatus
 
 
-
+#import pdb; pdb.set_trace()
 class LibraryTransaction(Document):
-    
-   
 
     def before_submit(self):
-        if self.type == "Issue":
+        
+        article = frappe.get_doc("Article",self.article)
+
+        if self.type == 'Issued':
             self.validate_issue()
             self.validate_maximum_limit()
-            # set the article status to be Issued
-            article = frappe.get_doc("Article", self.article)
-            article.status = "Issued"
-            article.save()
+         
+            if  int(article.owned_book) >= 1:
+               
+                article.issued_count = (int(article.issued_count)+1)
+                article.save()
+            else:
+                frappe.throw("no books available")
+                
+ 
 
         elif self.type == "Return":
             self.validate_return()
-            # set the article status to be Available
-            article = frappe.get_doc("Article", self.article)
             article.status = "Available"
+            if  int(article.issued_count) >= 1:
+                
+                article.issued_count = (int(article.issued_count)-1)
+                article.save()
+            else:
+                frappe.throw("no books Issued")
+
+
+        elif self.type == 'Buy':
+            
+            article.owned_book= (int(article.owned_book)+self.qty)
             article.save()
 
+        elif self.type == 'Sell':
+            
+            total=int(article.owned_book)-int(article.issued_count)
+
+            if  self.qty >= 1:
+               
+                if int(total) >= self.qty:
+                    
+                    article.owned_book = (int(article.owned_book) - self.qty)
+                    article.save()
+                
+                else:
+
+                    frappe.throw("total book is" + str(total))
+            else:
+                frappe.throw("value is less than")
+
+         
+         
+         
+
     def validate_issue(self):
-        self.validate_membership()
+        #self.validate_membership()
         article = frappe.get_doc("Article", self.article)
         # article cannot be issued if it is already issued
         if article.status == "Issued":
