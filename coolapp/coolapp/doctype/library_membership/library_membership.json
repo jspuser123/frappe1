@@ -18,7 +18,8 @@
   "lft",
   "rgt",
   "is_group",
-  "parent_library_membership"
+  "parent_library_membership",
+  "membership_type"
  ],
  "fields": [
   {
@@ -30,24 +31,27 @@
    "reqd": 1
   },
   {
-   "fetch_from": "library_member.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
    "label": "Full Name ",
    "read_only": 1
   },
   {
+   "default": "Today",
+   "depends_on": "eval:(doc.membership_type == 'Individual' || doc.membership_type == 'company') ",
    "fieldname": "from_date",
    "fieldtype": "Date",
    "label": "From Date"
   },
   {
+   "depends_on": "eval:(doc.membership_type == 'Individual' || doc.membership_type == 'company') ",
    "fieldname": "to_date",
    "fieldtype": "Date",
    "label": "To Date"
   },
   {
    "default": "0",
+   "depends_on": "eval:(doc.membership_type == 'Individual' || doc.membership_type == 'company') ",
    "fieldname": "paid",
    "fieldtype": "Check",
    "label": "Paid "
@@ -79,22 +83,30 @@
   },
   {
    "default": "0",
+   "depends_on": "eval:(doc.membership_type == 'company') ",
    "fieldname": "is_group",
    "fieldtype": "Check",
    "label": "Is Group"
   },
   {
+   "depends_on": "eval:(doc.membership_type == 'group') ",
    "fieldname": "parent_library_membership",
    "fieldtype": "Link",
    "label": "Parent Library Membership",
    "options": "Library Membership"
+  },
+  {
+   "fieldname": "membership_type",
+   "fieldtype": "Select",
+   "label": "membership type",
+   "options": "\nIndividual\ngroup\ncompany"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2023-03-15 16:20:55.266312",
+ "modified": "2023-03-27 11:51:54.652743",
  "modified_by": "Administrator",
  "module": "coolapp",
  "name": "Library Membership",
@@ -115,7 +127,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

@@ -9,8 +9,7 @@
  "engine": "InnoDB",
  "field_order": [
   "loan_period",
-  "max_articles",
-  "name1"
+  "max_articles"
  ],
  "fields": [
   {
@@ -22,17 +21,12 @@
    "fieldname": "max_articles",
    "fieldtype": "Int",
    "label": "Maximum Number of Issued Articles"
-  },
-  {
-   "fieldname": "name1",
-   "fieldtype": "Data",
-   "label": "name"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-03-15 11:44:52.375918",
+ "modified": "2023-03-23 17:27:55.194334",
  "modified_by": "Administrator",
  "module": "coolapp",
  "name": "Library Settings",

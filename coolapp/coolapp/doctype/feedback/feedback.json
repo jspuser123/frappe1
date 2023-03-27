@@ -30,6 +30,7 @@
    "options": "Library Member"
   },
   {
+   "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "date"
@@ -52,7 +53,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-03-15 11:00:11.844123",
+ "modified": "2023-03-27 11:52:56.980252",
  "modified_by": "Administrator",
  "module": "coolapp",
  "name": "feedback",
