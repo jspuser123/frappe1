@@ -48,6 +48,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Library Member ",
+   "mandatory_depends_on": "eval:(doc.type == 'Issued' || doc.type == 'Return')",
    "options": "Library Member"
   },
   {
@@ -63,7 +64,8 @@
    "depends_on": "eval:(doc.type == 'Sell' || doc.type == 'Buy')",
    "fieldname": "qty",
    "fieldtype": "Int",
-   "label": "qty"
+   "label": "qty",
+   "mandatory_depends_on": "eval:(doc.type == 'Sell' || doc.type == 'Buy')"
   },
   {
    "fieldname": "column_break_cqxsw",
@@ -73,7 +75,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-23 16:52:38.123248",
+ "modified": "2023-03-28 13:20:14.762256",
  "modified_by": "Administrator",
  "module": "coolapp",
  "name": "Library Transaction",

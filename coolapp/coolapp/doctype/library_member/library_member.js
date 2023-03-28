@@ -1,6 +1,5 @@
 // Copyright (c) 2023, jagan and contributors
 // For license information, please see license.txt
-
 frappe.ui.form.on('Library Member', {
 	refresh: function(frm) {
         frm.add_custom_button('Create Membership', () => {

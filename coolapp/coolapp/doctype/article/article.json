@@ -42,7 +42,8 @@
   {
    "fieldname": "author",
    "fieldtype": "Data",
-   "label": "Author "
+   "label": "Author ",
+   "reqd": 1
   },
   {
    "fieldname": "description",
@@ -52,7 +53,8 @@
   {
    "fieldname": "isdn",
    "fieldtype": "Data",
-   "label": "ISDN"
+   "label": "ISDN",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_ggo02",
@@ -100,7 +102,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "publised",
  "links": [],
- "modified": "2023-03-20 19:34:02.027582",
+ "modified": "2023-03-28 12:29:50.725331",
  "modified_by": "Administrator",
  "module": "coolapp",
  "name": "Article",
