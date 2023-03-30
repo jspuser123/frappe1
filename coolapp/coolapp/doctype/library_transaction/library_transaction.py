@@ -9,16 +9,15 @@ class LibraryTransaction(Document):
     def before_submit(self):
         article = frappe.get_doc("Article",self.article)
         if self.type == 'Issued':
-            self.validate_issue()
             self.validate_maximum_limit()
+            self.validate_membership()
             if  int(article.owned_book) >= 1:
                 article.issued_count = (int(article.issued_count)+1)
                 article.save()
             else:
                 frappe.throw("books is not available")       
         elif self.type == "Return":
-            self.validate_return()
-            article.status = "Available"
+       
             if  int(article.issued_count) >= 1:
                 article.issued_count = (int(article.issued_count)-1)
                 article.save()
@@ -36,19 +35,7 @@ class LibraryTransaction(Document):
                 else:
                     frappe.throw("Total Books is = " + str(total))
             else:
-                frappe.throw("Your Value  is Less Than Books value")
-
-    def validate_issue(self):
-        self.validate_membership()
-        article = frappe.get_doc("Article", self.article)
-        # article cannot be issued if it is already issued
-        if article.status == "Issued":
-            frappe.throw("Article is already Issued by Another member")
-    def validate_return(self):
-        article = frappe.get_doc("Article", self.article)
-        # article cannot be returned if it is not issued first
-        if article.status == "Available":
-            frappe.throw("Article cannot be returned without being issued first")
+                frappe.throw("Your Value  is Less Than Books value")  
     def validate_maximum_limit(self):
         max_articles = frappe.db.get_single_value("Library Settings", "max_articles")
         count = frappe.db.count("Library Transaction",{"library_member": self.library_member,
@@ -62,11 +49,11 @@ class LibraryTransaction(Document):
         # check if a valid membership exist for this library member
         data=frappe.db.get_list('Library Membership', filters={"library_member":self.library_member,"membership_type":['in',['Individual','group','company']],},fields=['membership_type'])
         for y in data:
-            print(y)
-        for data1 in y.values():
-            print(data1)
-        if data1 == 'Individual':
-            valid_membership = frappe.db.exists(
+            pass
+        for membership_type in y.values():
+            pass
+        if membership_type == 'Individual':
+            valid_membership1 = frappe.db.exists(
                 "Library Membership",
                 {
                     "library_member": self.library_member,
@@ -76,23 +63,40 @@ class LibraryTransaction(Document):
                     "paid": ("=", 1)
                 },
             )
-            if not valid_membership:
-                frappe.throw("The member does not have a valid membership Individual ")
-        elif data1 == 'group':
-            
-             valid_membership = frappe.db.exists(
+            if not valid_membership1:
+                frappe.throw("The member does not have a valid membership")
+        elif membership_type == 'group':
+             
+             group_member=frappe.db.get_list('Library Membership', filters={"library_member":self.library_member},fields=["parent_library_membership"])           
+             for z in group_member:
+                pass
+             for ids in z.values():
+                pass
+             membership_id = frappe.get_doc("Library Membership",ids)            
+             valid_membership2 = frappe.db.exists(
+                 "Library Membership",
+                {
+                    "library_member": membership_id.library_member,
+                    "docstatus": DocStatus.submitted(),
+                    "from_date": ("<=", self.date),
+                    "to_date": (">=", self.date),
+                    "paid": ("=", 1),
+                    "is_group": ("=", 1)
+                },
+            )               
+             valid_membership3 = frappe.db.exists(
                 "Library Membership",
                 {
                     "library_member": self.library_member,
                     "docstatus": DocStatus.submitted(),
+
                 },
             )
-             if not valid_membership:
-                frappe.throw("The member does not have a valid membership group")
+             if not valid_membership2 and  valid_membership3 :
+                frappe.throw("The member does not have a valid membership")
 
-        elif data1 == 'company':
-             
-             valid_membership = frappe.db.exists(
+        elif membership_type == 'company':
+             valid_membership4 = frappe.db.exists(
                  "Library Membership",
                 {
                     "library_member": self.library_member,
@@ -104,8 +108,8 @@ class LibraryTransaction(Document):
 
                 },
             )
-             if not valid_membership:
-                frappe.throw("The member does not have a valid membership company")
+             if not valid_membership4:
+                frappe.throw("The member does not have a valid membership")
         else:
             frappe.throw("The member does not have a valid membership")
 

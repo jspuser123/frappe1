@@ -6,53 +6,82 @@ frappe.ui.form.on('Library Membership', {
 			{
 				return {filters: {	"membership_type":'company'}}
 			}
-			frm.doc.paid=true	
-			frm.doc.is_group=true			
+					
 		},
 	library_member: function(frm){
 			if (frm.doc.library_member)
 			{
-				let lis =frappe.db.get_list('Library Membership', 
+				
+				frappe.db.get_list('Library Membership', 
 				{
 					filters: 
 					{
-					"membership_type":['in',['group','company']],
+					"membership_type":['in',['company','Individual']],
 					"library_member":frm.doc.library_member,
+					"to_date":['>=',frappe.datetime.nowdate()]
 					}
-				}).then(lis =>
+				}).then(membership_list =>
 
 				{
-				
-				if(lis.length == 0)
+			
+				if(membership_list.length == 0)
 					{
-					console.log("value is emty")
+						return;
 					}
 				else
 					{
-					let c = frappe.db.get_doc("Library Membership",lis[0].name).then(rowdata =>
+					let c = frappe.db.get_doc("Library Membership",membership_list[0].name).then(row_data =>
 						{
-						if (rowdata.membership_type == "group")
+						
+						if (row_data.membership_type == "company")
 							{
-								var x =lis[0].parent_library_membership
-								frappe.msgprint("A member of this group ",x)
+								//var y = membership_list[0].library_member
+								frappe.msgprint("Already active membership this member in company")
 							}
-						else if (rowdata.membership_type == "company")
-							{
-								var y = lis[0].library_member
-								frappe.msgprint("A member of this company",y)
-							}
+						else if (row_data.membership_type == "Individual")
+						{
+						
+							frappe.msgprint("already active membership this member in Individual")
+						}
 						else
 							{
-								console.log("else if ",rowdata)
+								return;
 							}
 					
 						});
 
 					}
 				});
+
+				frappe.db.get_list('Library Membership', {
+					filters: {
+					"membership_type":'group',
+					"library_member":frm.doc.library_member,
+             
+             
+					},fields:["parent_library_membership"]}).then(membership_list1 => {
+				
+						if(membership_list1.length == 0)
+						{
+							return;
+						}
+					else
+					{	
+					frappe.db.get_doc("Library Membership",membership_list1[0].parent_library_membership).then(row_data1 =>
+						{
+						if (row_data1.to_date >= frappe.datetime.nowdate())
+							{
+								frappe.msgprint("already active membership this member in group")
+							}
+
+						});
+
+					}
+				})
+
 		    }	
 		},
 
-	from_date: function(frm ){frm.set_value("from_date", frappe.datetime.add_days(frappe.datetime.nowdate()))},
-
+	from_date:function(frm ){frm.set_value("from_date", frappe.datetime.add_days(frappe.datetime.nowdate()))},
+	
 });
