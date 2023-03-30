@@ -1,8 +1,7 @@
 // Copyright (c) 2023, jagan and contributors
 // For license information, please see license.txt
 frappe.ui.form.on('Library Membership', {
-	refresh: function(frm) 
-		{
+	refresh: function(frm) {
 			cur_frm.fields_dict['parent_library_membership'].get_query = function(doc) 
 			{
 				return {filters: {	"membership_type":'company'}}
@@ -10,9 +9,7 @@ frappe.ui.form.on('Library Membership', {
 			frm.doc.paid=true	
 			frm.doc.is_group=true			
 		},
-	library_member: function(frm)
-		{
-		
+	library_member: function(frm){
 			if (frm.doc.library_member)
 			{
 				let lis =frappe.db.get_list('Library Membership', 
