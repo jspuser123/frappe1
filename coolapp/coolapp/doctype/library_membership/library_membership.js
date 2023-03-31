@@ -24,11 +24,7 @@ frappe.ui.form.on('Library Membership', {
 
 				{
 			
-				if(membership_list.length == 0)
-					{
-						return;
-					}
-				else
+				if(membership_list.length > 0)
 					{
 					let c = frappe.db.get_doc("Library Membership",membership_list[0].name).then(row_data =>
 						{
@@ -61,12 +57,10 @@ frappe.ui.form.on('Library Membership', {
              
 					},fields:["parent_library_membership"]}).then(membership_list1 => {
 				
-						if(membership_list1.length == 0)
-						{
-							return;
-						}
-					else
-					{	
+						if(membership_list1.length > 0)
+						
+					
+						{	
 					frappe.db.get_doc("Library Membership",membership_list1[0].parent_library_membership).then(row_data1 =>
 						{
 						if (row_data1.to_date >= frappe.datetime.nowdate())
@@ -82,6 +76,14 @@ frappe.ui.form.on('Library Membership', {
 		    }	
 		},
 
-	from_date:function(frm ){frm.set_value("from_date", frappe.datetime.add_days(frappe.datetime.nowdate()))},
+	//from_date:function(frm ){frm.set_value("from_date", frappe.datetime.add_days(frappe.datetime.nowdate(),))},
+
+	from_date:function(frm ){
+		frm.set_value("from_date", frappe.datetime.add_days(frappe.datetime.nowdate(),)) 
+		frm.fields_dict.to_date.datepicker.update({
+            minDate: frm.doc.from_date ? new Date(frm.doc.from_date) : null
+        });
+	}
+
 	
 });

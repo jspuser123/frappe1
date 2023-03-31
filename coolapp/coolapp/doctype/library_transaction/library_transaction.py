@@ -48,10 +48,9 @@ class LibraryTransaction(Document):
     def validate_membership(self):
         # check if a valid membership exist for this library member
         data=frappe.db.get_list('Library Membership', filters={"library_member":self.library_member,"membership_type":['in',['Individual','group','company']],},fields=['membership_type'])
-        for y in data:
-            pass
-        for membership_type in y.values():
-            pass
+        data_dict=data[0]
+        membership_type =data_dict['membership_type']
+        
         if membership_type == 'Individual':
             valid_membership1 = frappe.db.exists(
                 "Library Membership",
@@ -68,10 +67,9 @@ class LibraryTransaction(Document):
         elif membership_type == 'group':
              
              group_member=frappe.db.get_list('Library Membership', filters={"library_member":self.library_member},fields=["parent_library_membership"])           
-             for z in group_member:
-                pass
-             for ids in z.values():
-                pass
+             z_dict =group_member[0]
+             ids =z_dict["parent_library_membership"]
+      
              membership_id = frappe.get_doc("Library Membership",ids)            
              valid_membership2 = frappe.db.exists(
                  "Library Membership",
