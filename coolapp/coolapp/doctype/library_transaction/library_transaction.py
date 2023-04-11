@@ -16,8 +16,7 @@ class LibraryTransaction(Document):
                 article.save()
             else:
                 frappe.throw("books is not available")       
-        elif self.type == "Return":
-       
+        elif self.type == "Return":       
             if  int(article.issued_count) >= 1:
                 article.issued_count = (int(article.issued_count)-1)
                 article.save()
@@ -65,7 +64,6 @@ class LibraryTransaction(Document):
             if not valid_membership1:
                 frappe.throw("The member does not have a valid membership")
         elif membership_type == 'group':
-             
              group_member=frappe.db.get_list('Library Membership', filters={"library_member":self.library_member},fields=["parent_library_membership"])           
              z_dict =group_member[0]
              ids =z_dict["parent_library_membership"]
@@ -110,5 +108,4 @@ class LibraryTransaction(Document):
                 frappe.throw("The member does not have a valid membership")
         else:
             frappe.throw("The member does not have a valid membership")
-
 
