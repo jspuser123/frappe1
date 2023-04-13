@@ -18,10 +18,11 @@
   "description",
   "isdn",
   "section_break_7r7as",
-  "status",
   "publisher",
   "route",
-  "publised"
+  "publised",
+  "owned_book",
+  "issued_count"
  ],
  "fields": [
   {
@@ -41,7 +42,8 @@
   {
    "fieldname": "author",
    "fieldtype": "Data",
-   "label": "Author "
+   "label": "Author ",
+   "reqd": 1
   },
   {
    "fieldname": "description",
@@ -51,14 +53,8 @@
   {
    "fieldname": "isdn",
    "fieldtype": "Data",
-   "label": "ISDN"
-  },
-  {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Status ",
-   "options": "Available\nIssued"
+   "label": "ISDN",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_ggo02",
@@ -84,6 +80,21 @@
    "fieldtype": "Data",
    "label": " Publisher",
    "read_only": 1
+  },
+  {
+   "fieldname": "issued_count",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "issued_count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "owned_book",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "owned_book",
+   "read_only_depends_on": "eval:!(doc.__islocal)",
+   "reqd": 1
   }
  ],
  "has_web_view": 1,
@@ -91,7 +102,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "publised",
  "links": [],
- "modified": "2023-03-15 12:29:40.689988",
+ "modified": "2023-03-28 12:29:50.725331",
  "modified_by": "Administrator",
  "module": "coolapp",
  "name": "Article",

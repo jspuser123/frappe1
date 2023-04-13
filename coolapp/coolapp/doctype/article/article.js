@@ -4,5 +4,7 @@
 frappe.ui.form.on('Article', {
 	// refresh: function(frm) {
 
+	// frm.set_df_property("owned_book", "read_only", frm.library_transaction() ? 0 : 1)
+
 	// }
 });

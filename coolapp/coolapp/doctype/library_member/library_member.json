@@ -30,7 +30,8 @@
   {
    "fieldname": "last_name",
    "fieldtype": "Data",
-   "label": "Last Name "
+   "label": "Last Name ",
+   "reqd": 1
   },
   {
    "fieldname": "full_name",
@@ -43,13 +44,15 @@
    "fieldname": "email_address",
    "fieldtype": "Data",
    "label": "Email Address",
-   "options": "Email"
+   "options": "Email",
+   "reqd": 1
   },
   {
    "fieldname": "phone",
    "fieldtype": "Data",
    "label": "Phone",
-   "options": "Phone"
+   "options": "Phone",
+   "reqd": 1
   },
   {
    "fieldname": "amended_from",
@@ -76,7 +79,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "publised",
  "links": [],
- "modified": "2023-03-15 19:49:12.394619",
+ "modified": "2023-03-28 12:24:53.850844",
  "modified_by": "Administrator",
  "module": "coolapp",
  "name": "Library Member",
